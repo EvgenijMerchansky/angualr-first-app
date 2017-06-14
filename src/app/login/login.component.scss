@@ -1,0 +1,73 @@
+$basic-color: #000;
+$text-color: #fff;
+
+.login-page{
+
+  &-form{
+
+    &-log{
+      padding: 30px;
+
+      &-alert{
+        width: 250px;
+        margin: 0 auto;
+      }
+
+    }
+
+    &-pass{
+      margin-bottom: 20px;
+
+    }
+
+  }
+
+  a.disabled {
+   pointer-events: none;
+   cursor: default;
+   opacity: .3;
+  }
+
+  &-model{
+    border: solid 2px #fff;
+    border-radius: 2px;
+    width: 600px;
+    margin: 70px auto;
+  }
+
+
+
+  h1{
+    padding: 20px 0;
+  }
+
+  input{
+    outline: none;
+    border: none;
+    height: 30px;
+    width: 250px;
+    color: $basic-color;
+    border-radius: 5px;
+    padding: 7px;
+    margin-bottom: 8px;
+  }
+
+  a{
+    width: 150px;
+    height: 40px;
+    background-color: transparent;
+    border: solid 2px #fff;
+    color: $text-color;
+    border-radius: 5px;
+    font-size: 24px;
+    padding: 15px;
+    text-decoration: none;
+    outline: none;
+    cursor: pointerl;
+
+    &:hover{
+      border: solid 2px #ccc;
+      color: #eee;
+    }
+  }
+}

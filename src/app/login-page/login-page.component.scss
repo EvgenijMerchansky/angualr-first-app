@@ -1,0 +1,45 @@
+.logined-page{
+  background: #fff;
+  opacity: .9;
+  color: #000;
+  width: 700px;
+  margin: 70px auto;
+  padding: 25px;
+  border-radius: 7px;
+
+  &:hover{
+    opacity: 1;
+  }
+
+  ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li{
+    margin: 0;
+    padding: 0;
+    text-align: justify;
+    &:hover{
+      button {
+        color: #000;
+      }
+    }
+
+    button{
+
+      margin-left: 10px;
+      background-color: transparent;
+      border: none;
+      color: transparent;
+
+
+      // float: right;
+    }
+  }
+
+  h1{
+    // padding: 20px 0;
+  }
+}

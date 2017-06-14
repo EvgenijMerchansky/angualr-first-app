@@ -1,0 +1,11 @@
+<div class="logined-page">
+  <h1>{{ title }}</h1>
+
+  <!-- <div *ngIf="localStorage['administrator'] ? true : false"class="admin-panel"> -->
+    <h2>Registrated users:</h2>
+    <ul>
+      <!-- *ngFor="#hero of heroes" -->
+      <li *ngFor="let i of showUser()">{{i}} <button type="button" (click)="delFunc($event)" name="button">x</button></li>
+    </ul>
+  <!-- </div> -->
+</div>
