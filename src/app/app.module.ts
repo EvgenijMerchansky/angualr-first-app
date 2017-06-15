@@ -10,6 +10,7 @@ import { RegisterPageComponent } from './register-page/register-page.component';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { LoginPageComponent } from './login-page/login-page.component';
+import { AgmCoreModule } from '@agm/core';
 
 const appRoutes: Routes = [
   { path: 'register', component: Register },
@@ -30,6 +31,9 @@ const appRoutes: Routes = [
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCRW9U-cqcSo1cIJo2vSTAmakNZW-6ZIZ8'
+    }),
     BrowserModule,
     FormsModule,
     HttpModule

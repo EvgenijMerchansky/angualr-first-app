@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginComponent } from '../login/login.component';
+import { Directive , Input , Output, EventEmitter} from '@angular/core';
+
+// import { MarkerManager } from '../services/managers/marker-manager';
 
 @Component({
   selector: 'app-login-page',
@@ -8,7 +11,38 @@ import { LoginComponent } from '../login/login.component';
   inputs: ['model']
 })
 export class LoginPageComponent implements OnInit {
-  title:string = 'Old user page!';
+  // title:string = 'Old user page!';
+  @Output() markerClick: EventEmitter<void> = new EventEmitter<void>();
+  title: string = 'My first AGM project';
+  lat: number = 51.678418;
+  lng: number = 7.809007;
+  // markerName:string;
+  // markerLat:string;
+  // markerLng:string;
+
+  // markers = [];
+  // markerDraggable:string;
+
+  addMarker(){
+    console.log('marker Added!');
+
+    // const newMarker = {
+    //   name: this.markerName,
+    //   lat: parseFloat(this.markerLat),
+    //   lng: parseFloat(this.markerLng)
+    // }
+
+    // this.markers.push(newMarker);
+
+  }
+
+  // @Output() centerChange: EventEmitter<LatLngLiteral> = new EventEmitter<LatLngLiteral>();
+  // @Input() disableDoubleClickZoom: boolean = true;
+
+  // updateMarkerPosition(marker: AgmMarker): Promise<void> {
+  //   return this._markers.get(marker).then(
+  //       (m: Marker) => m.setPosition({lat: marker.latitude, lng: marker.longitude}));
+  // }
 
   reus = {
     reuser: ''
@@ -23,6 +57,8 @@ export class LoginPageComponent implements OnInit {
     // console.log(this.nums);
 
   }
+
+  // AIzaSyCRW9U-cqcSo1cIJo2vSTAmakNZW-6ZIZ8
 
   showUser = function() {
 

@@ -3,9 +3,16 @@
 
   <!-- <div *ngIf="localStorage['administrator'] ? true : false"class="admin-panel"> -->
     <h2>Registrated users:</h2>
-    <ul>
-      <!-- *ngFor="#hero of heroes" -->
-      <li *ngFor="let i of showUser()">{{i}}<input type="text" name="" value="" [(ngModel)] = reus.reuser/> <button type="button" (click)="delFunc($event)" name="button">x</button></li>
-    </ul>
-  <!-- </div> -->
+    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="3" [disableDoubleClickZoom]="true">
+      <agm-marker [latitude]="lat" [longitude]="lng">   </agm-marker>
+    </agm-map>
+    <form class="" method="post" (submit)="addMarker()">
+      <input type="text" name="markerName" value="marker-name" [(ngModel)] = "markerName"/>
+      <input type="submit" name="marker-name" value="map!">
+    </form>
+    <!--  -->
+      <!-- <ul>
+        <li *ngFor="let i of showUser()">{{i}}<input type="text" name="" value="" [(ngModel)] = reus.reuser/> <button type="button" (click)="delFunc($event)" name="button">x</button></li>
+      </ul> -->
+    <!--  -->
 </div>
