@@ -21,6 +21,7 @@ const appRoutes: Routes = [
 
 @NgModule({
   declarations: [
+
     AppComponent,
     Register,
     RegisterPageComponent,

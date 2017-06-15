@@ -7,6 +7,7 @@ $text-color: #fff;
 
     &-log{
       padding: 30px;
+      text-align: center;
 
       &-alert{
         width: 250px;
@@ -16,6 +17,8 @@ $text-color: #fff;
     }
 
     &-pass{
+      text-align: center;
+      padding: 30px;
       margin-bottom: 20px;
 
     }
@@ -26,6 +29,10 @@ $text-color: #fff;
    pointer-events: none;
    cursor: default;
    opacity: .3;
+   display: block;
+   height: 70px;
+   text-align: center;
+   margin: 0 auto;
   }
 
   &-model{
@@ -38,6 +45,7 @@ $text-color: #fff;
 
 
   h1{
+    text-align: center;
     padding: 20px 0;
   }
 
@@ -64,6 +72,10 @@ $text-color: #fff;
     text-decoration: none;
     outline: none;
     cursor: pointerl;
+    display: block;
+    height: 70px;
+    text-align: center;
+    margin: 0 auto;
 
     &:hover{
       border: solid 2px #ccc;

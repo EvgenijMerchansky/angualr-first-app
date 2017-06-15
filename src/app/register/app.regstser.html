@@ -1,6 +1,5 @@
 <div class="register">
   <h1>Welcome to register page!</h1>
-  <!-- change for form tag -->
   <br/>
   <form class="register-page-form" method="post" #myForm="ngForm">
 
@@ -21,11 +20,5 @@
 
   </form>
 
-  <!-- <div>
-    <h1>MODAL:</h1>
-    NEW LOGIN: {{regFields.newLogin}} NEW PASSWORD: {{regFields.newPass}} REPASSWORD: {{regFields.rePass}}
-  </div> -->
-
   <a [class.disabled]="regFields.newLogin.length == 0 || regFields.newLogin.length < 6 || regFields.newPass.length == 0 || regFields.newPass.length < 8 || regFields.rePass.length == 0 || regFields.rePass.length < 8 || regFields.newPass != regFields.rePass ? true : false" routerLink="/register:register_page" routerLinkActive="active" (click)="log($event)">Register!</a>
-  <!-- <a [class.disabled]="model.login.length == 0 || model.login.length < 6 || model.password.length == 0 || model.password.length < 8 ? true : false" routerLink="/login:logined" (click)="show($event,login,password)" routerLinkActive="active">Login!</a> -->
 </div>

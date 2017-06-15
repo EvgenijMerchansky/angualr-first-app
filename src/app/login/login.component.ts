@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginPageComponent } from '../login-page/login-page.component';
+import { LoginValuesComponent } from '../login-values/login-values.component';
 
 @Component({
   selector: 'app-login',
@@ -14,24 +16,49 @@ export class LoginComponent implements OnInit {
   }
 
   show = function(e,login,password){
-    console.log(this.model.login.length);
 
-    const data:any = {
-      login: login.value,
-      password: password.value
-    };
+    const names = [];
 
-    if(data.login == 'admin1' && data.password == 'admin111'){
+    for (let i in localStorage){
 
-      const store = localStorage;
+        const key = i;
+        const value = localStorage[i];
 
-      store.setItem('administrator', JSON.stringify(data));
+        const total = {
+          key: key,
+          value: value
+        }
 
-      console.log(store);
+        names.push(total);
 
-    }else{
-      // нужно сделать так что бы запретить пускать на следующие элемент по роуту
-      // console.log('i don know you!');
+    }
+
+    const keys = names.map((elem, index) => {
+
+      if(this.model.login == elem['key']){
+        const boolLog = true;
+        return boolLog
+      }
+
+    });
+
+    const values = names.map((elem, index) => {
+
+      if(this.model.password == elem['value']){
+        const boolPass = true;
+        return boolPass
+      }
+
+    })
+
+    const logSome = keys.some(x => x == true);
+    const passSome = values.some(x => x == true); // true
+
+    if(logSome && passSome == true){
+
+      const totalTrue = true;
+      return totalTrue;
+
     }
 
   }
@@ -40,5 +67,3 @@ export class LoginComponent implements OnInit {
   };
 
 }
-
-// console.log(this);

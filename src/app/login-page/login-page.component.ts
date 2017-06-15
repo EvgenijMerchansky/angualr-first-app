@@ -1,14 +1,33 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.scss']
+  styleUrls: ['./login-page.component.scss'],
+  inputs: ['model']
 })
 export class LoginPageComponent implements OnInit {
   title:string = 'Old user page!';
 
+  reus = {
+    reuser: ''
+  }
+  // mode:Object = {
+  //
+  // };
+  nums:number = 12;
+
+  constructor(){
+    this.nums = 44;
+    // console.log(this.nums);
+
+  }
+
   showUser = function() {
+
+
+    // console.log(this.model)
 
     const testArr = [];
     const store = localStorage;
@@ -19,11 +38,13 @@ export class LoginPageComponent implements OnInit {
 
     }
 
-    for(let i in store){
-      const key = i;
-      const value = store[i];
-
-    }
+    // for(let i in store){
+    //
+    //   const key = i;
+    //   const value = store[i];
+    //   console.log(key , value)
+    //
+    // }
     // console.log( this.key, this.value );
 
     // console.log(testArr);
@@ -31,11 +52,14 @@ export class LoginPageComponent implements OnInit {
   }
 
   delFunc = function(e) {
+    // ;
 
     const deleteItem = e.target.parentNode.remove();
+    // console.log(this.model);
     // localStorage.removeItem(deleteItem);
 
     // console.log(localStorage);
+    // console.log(this)
   }
 
   ngOnInit() {
@@ -46,6 +70,8 @@ export class LoginPageComponent implements OnInit {
 
 }
 
-console.log(this);
+// console.log(this);
+
+// console.log(this);
 
 // console.log(localStorage, this);

@@ -3,22 +3,15 @@
   <!-- <br/> -->
   <form class="login-page-form" method="post" #myForm="ngForm">
     <div class="login-page-form-log">
-      <input placeholder="Login" type="text" required minlength="6" maxlength="20" [(ngModel)] = model.login #login="ngModel" name="login"/>
-      <div *ngIf="model.login.length == 0 || model.login.length < 6" class="alert alert-danger login-page-form-log-alert"> Invalid login!</div>
+        <input placeholder="Login" type="text" required minlength="6" maxlength="20" [(ngModel)] = model.login #login="ngModel" name="login"/>
+      <div *ngIf="show() != true" class="alert alert-danger login-page-form-log-alert"> Invalid login!</div>
     </div>
 
     <div class="login-page-form-pass">
       <input placeholder="Password" type="password" [(ngModel)] = model.password #password="ngModel" name="password"/>
-      <div *ngIf="model.password.length == 0 || model.password.length < 8" class="alert alert-danger login-page-form-log-alert"> Invalid password!</div>
+      <div *ngIf="show() != true" class="alert alert-danger login-page-form-log-alert"> Invalid password!</div>
     </div>
   </form>
   <br/>
-  <a [class.disabled]="model.login.length == 0 || model.login.length < 6 || model.password.length == 0 || model.password.length < 8 ? true : false" routerLink="/login:logined" (click)="show($event,login,password)" routerLinkActive="active">Login!</a>
-  <!--  -->
-  <!-- <div class="login-page-model">
-    <h3>Model:</h3>
-    <br/>
-    <p>Login: {{model.login}}  Password: {{model.password}}</p>
-  </div> -->
-  <!--  -->
+  <a [class.disabled]="show() == true ? false : true" routerLink="/login:logined" (click)="show($event,login,password)" routerLinkActive="active">Login!</a>
 </div>

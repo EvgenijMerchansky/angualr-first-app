@@ -14,18 +14,10 @@ export class Register {
     rePass: ''
   };
 
-
-
   log = function(e){
 
     localStorage.setItem(this.regFields.newLogin, this.regFields.newPass);
 
-    for (let i in localStorage){
-
-      console.dir(i);
-
-    }
-
   }
-  // console.log(regFields)
+
 }
