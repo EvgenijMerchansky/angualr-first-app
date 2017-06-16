@@ -1,7 +1,8 @@
 <div class="home">
   <div class="home__wrapper">
-    <a routerLink="/login" routerLinkActive="active">Sign in</a>
-    <a routerLink="/register" routerLinkActive="active">Register</a>
+    <a *ngIf="location == '/login' || location == '/' || location == '/register' ? true : false" routerLink="/login" routerLinkActive="active">Sign in</a>
+    <a *ngIf="location == '/login' || location == '/' || location == '/register' ? false : true" routerLink="/" routerLinkActive="active">Sign out</a>
+    <a *ngIf="location == '/login' || location == '/' ? true : false" routerLink="/register" routerLinkActive="active">Register</a>
     <router-outlet></router-outlet>
   </div>
 </div>

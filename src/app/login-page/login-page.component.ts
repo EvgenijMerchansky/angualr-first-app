@@ -13,8 +13,8 @@ import { LoginData } from '../login-data.service';
 export class LoginPageComponent implements OnInit {
 
   title: string;
-  lat: number = 51.678418;
-  lng: number = 7.809007;
+  lat: number = 49.994384;
+  lng: number = 36.236568;
   reus = {
     reuser: ''
   };
@@ -26,35 +26,6 @@ export class LoginPageComponent implements OnInit {
     return adminBool
 
   }
-
-
-  // constructor(private _loginData: LoginData){
-  //
-  // }
-  //
-  ngOnInit() {
-  //
-  //   this.hello = this._loginData.getAdmin();
-  //
-  }
-
-  // @Output() markerClick: EventEmitter<void> = new EventEmitter<void>();
-
-
-  addMarker(){
-    console.log('marker Added!');
-
-    // const newMarker = {
-    //   name: this.markerName,
-    //   lat: parseFloat(this.markerLat),
-    //   lng: parseFloat(this.markerLng)
-    // }
-
-    // this.markers.push(newMarker);
-
-  }
-
-
 
   showUser() {
 
@@ -74,6 +45,10 @@ export class LoginPageComponent implements OnInit {
   delFunc(e) {
 
     const deleteItem = e.target.parentNode.remove();
+
+  }
+
+  ngOnInit() {
 
   }
 

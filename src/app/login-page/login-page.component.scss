@@ -7,6 +7,11 @@
   padding: 25px;
   border-radius: 7px;
 
+  h2{
+    color: #00919e;
+    text-align: center;
+  }
+
   &:hover{
     opacity: 1;
   }
@@ -18,13 +23,24 @@
   }
 
   li{
-    margin: 0;
+    margin: 2px 0;
     padding: 0;
     text-align: justify;
+    padding: 5px;
+    border: 1px solid #eee;
+    border-radius: 2px;
     &:hover{
       button {
         color: #000;
       }
+    }
+
+    input{
+      margin-left: 20px;
+      height: 18px;
+      padding: 3px;
+      border: solid 1px #ccc;
+      border-radius: 2px;
     }
 
     button{
@@ -41,6 +57,7 @@
 
   h1{
     text-align: center;
+    color: #00919e;
     // padding: 20px 0;
   }
 }

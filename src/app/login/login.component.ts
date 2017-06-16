@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginPageComponent } from '../login-page/login-page.component';
-import { LoginValuesComponent } from '../login-values/login-values.component';
 
 @Component({
   selector: 'app-login',
@@ -9,25 +8,25 @@ import { LoginValuesComponent } from '../login-values/login-values.component';
 })
 export class LoginComponent implements OnInit {
   title:string = 'Login page!';
-
   model:Object = {
     login: '',
     password: '',
-  }
+  };
 
   show = function(e,login,password){
 
     if(this.model.login == 'admin1' && this.model.password == 'admin1111'){
-      // console.log('admin true');
+
       let adminValid:any = true;
+
       localStorage.setItem('adminGeneral', adminValid);
-      console.log(adminValid, 'adminValid');
 
     }else{
-      this.adminValid = false;
+
+      this.adminValid = false; // - - -
+
       localStorage.setItem('adminGeneral', this.adminValid);
-      // console.log(adminValid, 'adminValid');
-      // console.log(localStorage['adminGeneral']);
+
     }
 
     const names = [];
@@ -77,6 +76,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() { // погуглить что это за параша и для чего она нужна.
+
   };
 
 }

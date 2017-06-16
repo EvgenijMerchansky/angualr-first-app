@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'Register and login application!';
+  title:string = 'Register and login application!';
+  location:string = window.location.pathname;
+
 }
+
+console.dir(typeof location.pathname);
+
+// console.log(window.location.pathname)

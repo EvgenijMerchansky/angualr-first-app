@@ -11,6 +11,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { AgmCoreModule } from '@agm/core';
+import { GooglePlaceModule } from 'ng2-google-place-autocomplete';
 
 const appRoutes: Routes = [
   { path: 'register', component: Register },
@@ -22,7 +23,6 @@ const appRoutes: Routes = [
 
 @NgModule({
   declarations: [
-
     AppComponent,
     Register,
     RegisterPageComponent,
@@ -41,4 +41,4 @@ const appRoutes: Routes = [
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
