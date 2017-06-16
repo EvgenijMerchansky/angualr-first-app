@@ -1,27 +1,45 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginComponent } from '../login/login.component';
-import { Directive , Input , Output, EventEmitter} from '@angular/core';
-
-// import { MarkerManager } from '../services/managers/marker-manager';
+import { Directive , Input , Output, EventEmitter } from '@angular/core';
+import { LoginData } from '../login-data.service';
 
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss'],
-  inputs: ['model']
+  inputs: ['model'],
+  providers: [LoginData]
 })
 export class LoginPageComponent implements OnInit {
-  // title:string = 'Old user page!';
-  @Output() markerClick: EventEmitter<void> = new EventEmitter<void>();
-  title: string = 'My first AGM project';
+
+  title: string;
   lat: number = 51.678418;
   lng: number = 7.809007;
-  // markerName:string;
-  // markerLat:string;
-  // markerLng:string;
+  reus = {
+    reuser: ''
+  };
 
-  // markers = [];
-  // markerDraggable:string;
+  admin(){
+
+    const adminBool = localStorage.getItem('adminGeneral');
+
+    return adminBool
+
+  }
+
+
+  // constructor(private _loginData: LoginData){
+  //
+  // }
+  //
+  ngOnInit() {
+  //
+  //   this.hello = this._loginData.getAdmin();
+  //
+  }
+
+  // @Output() markerClick: EventEmitter<void> = new EventEmitter<void>();
+
 
   addMarker(){
     console.log('marker Added!');
@@ -36,34 +54,9 @@ export class LoginPageComponent implements OnInit {
 
   }
 
-  // @Output() centerChange: EventEmitter<LatLngLiteral> = new EventEmitter<LatLngLiteral>();
-  // @Input() disableDoubleClickZoom: boolean = true;
-
-  // updateMarkerPosition(marker: AgmMarker): Promise<void> {
-  //   return this._markers.get(marker).then(
-  //       (m: Marker) => m.setPosition({lat: marker.latitude, lng: marker.longitude}));
-  // }
-
-  reus = {
-    reuser: ''
-  }
-  // mode:Object = {
-  //
-  // };
-  nums:number = 12;
-
-  constructor(){
-    this.nums = 44;
-    // console.log(this.nums);
-
-  }
-
-  // AIzaSyCRW9U-cqcSo1cIJo2vSTAmakNZW-6ZIZ8
-
-  showUser = function() {
 
 
-    // console.log(this.model)
+  showUser() {
 
     const testArr = [];
     const store = localStorage;
@@ -74,40 +67,14 @@ export class LoginPageComponent implements OnInit {
 
     }
 
-    // for(let i in store){
-    //
-    //   const key = i;
-    //   const value = store[i];
-    //   console.log(key , value)
-    //
-    // }
-    // console.log( this.key, this.value );
-
-    // console.log(testArr);
     return testArr;
   }
 
-  delFunc = function(e) {
-    // ;
+
+  delFunc(e) {
 
     const deleteItem = e.target.parentNode.remove();
-    // console.log(this.model);
-    // localStorage.removeItem(deleteItem);
-
-    // console.log(localStorage);
-    // console.log(this)
-  }
-
-  ngOnInit() {
 
   }
-
-
 
 }
-
-// console.log(this);
-
-// console.log(this);
-
-// console.log(localStorage, this);

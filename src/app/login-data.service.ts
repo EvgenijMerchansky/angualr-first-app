@@ -4,11 +4,10 @@ import { LoginComponent } from './login/login.component';
 @Injectable()
 
 export class LoginData {
-  model = this.model;
-
+  // model = this.model;
 
   getAdmin () {
-
+    return 'im a service';
   }
 
 }

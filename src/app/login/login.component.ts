@@ -17,6 +17,19 @@ export class LoginComponent implements OnInit {
 
   show = function(e,login,password){
 
+    if(this.model.login == 'admin1' && this.model.password == 'admin1111'){
+      // console.log('admin true');
+      let adminValid:any = true;
+      localStorage.setItem('adminGeneral', adminValid);
+      console.log(adminValid, 'adminValid');
+
+    }else{
+      this.adminValid = false;
+      localStorage.setItem('adminGeneral', this.adminValid);
+      // console.log(adminValid, 'adminValid');
+      // console.log(localStorage['adminGeneral']);
+    }
+
     const names = [];
 
     for (let i in localStorage){

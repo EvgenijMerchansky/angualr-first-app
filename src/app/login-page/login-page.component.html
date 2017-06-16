@@ -1,18 +1,23 @@
 <div class="logined-page">
-  <h1>{{ title }}</h1>
+  <!-- <h1>{{ title }}</h1> -->
 
-  <!-- <div *ngIf="localStorage['administrator'] ? true : false"class="admin-panel"> -->
+  <div *ngIf="admin() == 'true' ? true : false" class="admin-panel">
+    <h1>Administrator Panel</h1>
     <h2>Registrated users:</h2>
+    <ul>
+      <li *ngFor="let i of showUser()">{{i}}<input type="text" name="" value="" [(ngModel)] = reus.reuser/> <button type="button" (click)="delFunc($event)" name="button">x</button></li>
+    </ul>
+  </div>
+
+  <div *ngIf="admin() == 'false' ? true : false">
+    <h1>User Page:</h1>
     <agm-map [latitude]="lat" [longitude]="lng" [zoom]="3" [disableDoubleClickZoom]="true">
       <agm-marker [latitude]="lat" [longitude]="lng">   </agm-marker>
+      <form class="" method="post" (submit)="addMarker()">
+        <input type="text" name="markerName" value="marker-name" [(ngModel)] = "markerName"/>
+        <input type="submit" name="marker-name" value="map!">
+      </form>
     </agm-map>
-    <form class="" method="post" (submit)="addMarker()">
-      <input type="text" name="markerName" value="marker-name" [(ngModel)] = "markerName"/>
-      <input type="submit" name="marker-name" value="map!">
-    </form>
-    <!--  -->
-      <!-- <ul>
-        <li *ngFor="let i of showUser()">{{i}}<input type="text" name="" value="" [(ngModel)] = reus.reuser/> <button type="button" (click)="delFunc($event)" name="button">x</button></li>
-      </ul> -->
-    <!--  -->
+  </div>
+
 </div>
