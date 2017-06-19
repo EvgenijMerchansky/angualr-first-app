@@ -41,6 +41,19 @@ export class LoginPageComponent implements OnInit {
     return testArr;
   }
 
+  testArr2 = this.showUser();
+
+  mappedArr = this.testArr2.map((elem, index) => {
+
+    const testingObj = {
+      name: elem
+    }
+
+    return testingObj
+  })
+
+
+
 
   delFunc(e) {
 

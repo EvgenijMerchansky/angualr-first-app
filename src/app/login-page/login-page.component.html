@@ -5,7 +5,7 @@
     <h1>Administrator Panel</h1>
     <h2>Registrated users:</h2>
     <ul>
-      <li *ngFor="let i of showUser()">{{i}}<input type="text" name="" value="" [(ngModel)] = reus.reuser/> <button type="button" (click)="delFunc($event)" name="button">x</button></li>
+      <li *ngFor="let i of mappedArr">{{i.name}}<input type="text" name="" value="" [(ngModel)] = i.name/> <button type="button" (click)="delFunc($event)" name="button">x</button></li>
     </ul>
   </div>
 
