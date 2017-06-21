@@ -3,6 +3,8 @@ import { LoginComponent } from '../login/login.component';
 import { Directive , Input , Output, EventEmitter } from '@angular/core';
 import { LoginData } from '../login-data.service';
 import { GoogleMapsService } from 'google-maps-angular2';
+import { PopupModule } from 'ng2-opd-popup';  //
+import { Popup } from 'ng2-opd-popup';
 
 @Component({
   selector: 'app-login-page',
@@ -16,6 +18,8 @@ export class LoginPageComponent implements AfterViewInit {
   @ViewChild('mapElement') mapElement;
   @ViewChild('inputElement') inputElement;
 
+  @ViewChild('popup2') popup2: Popup;
+
   title: string;
   lat: number = 49.994384;
   lng: number = 36.236568;
@@ -27,8 +31,46 @@ export class LoginPageComponent implements AfterViewInit {
 
   private map: any;
 
-    constructor(private gapi: GoogleMapsService) {
+    constructor(private gapi: GoogleMapsService,private popup:Popup) {
     }
+
+    ClickButton(e){
+      const changer:any = document.querySelector('.logined-page');
+
+      // console.dir(changer.childNodes[0].nextElementSibling.children[1].lastChild.nextSibling);
+      // changer.style.background = "black";
+      // changer.stopPropagation();
+      // changer.style.opacity = ".1";
+      setTimeout(() => {
+
+      },1000)
+
+      // changer.style.opacity = ".5";
+      // changer.className = 'changer';
+      // changer.className = 'changer';
+      // changer
+        // opacity: .5;
+      // changer.style.marginLeft = '1';
+      // console.dir(e.currentTarget.parentNode.childNodes[0].data);
+      // console.log(e.target.parentNode.childNodes[0].data);
+      let zacep = e.target.parentNode.childNodes[0].data
+      this.popup.options = {
+        header: "Change users",
+        color: "#00abba", // red, blue....
+        widthProsentage: 30, // The with of the popou measured by browser width
+        animationDuration: 1, // in seconds, 0 = no animation
+        showButtons: true, // You can hide this in case you want to use custom buttons
+        confirmBtnContent: "OK", // The text on your confirm button
+        cancleBtnContent: "Cancel", // the text on your cancel button
+        confirmBtnClass: "btn btn-default", // your class for styling the confirm button
+        cancleBtnClass: "btn btn-default", // you class for styling the cancel button
+        animation: "fadeInDown" // 'fadeInLeft', 'fadeInRight', 'fadeInUp', 'bounceIn','bounceInDown'
+      };
+
+      this.popup.show(this.popup2.options);
+    }
+
+
 
     ngAfterViewInit(): void {
 
@@ -157,9 +199,16 @@ export class LoginPageComponent implements AfterViewInit {
     return testingObj
   })
 
-  delFunc(e) {
+  YourConfirmEvent(){
 
-    const elemTargetting = e.target.parentNode.textContent.split(' ')[0];
+    window.location.reload();
+
+  }
+
+  delFunc(e) {
+    console.dir(e.target.parentNode.childNodes[0].value)
+
+    const elemTargetting = e.target.parentNode.childNodes[0].value;
 
     for (let i in localStorage){
 

@@ -13,6 +13,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { AgmCoreModule } from '@agm/core';
 import { GooglePlaceModule } from 'ng2-google-place-autocomplete';
 import { GoogleMapsModule } from 'google-maps-angular2';
+import { PopupModule } from 'ng2-opd-popup';
 
 const appRoutes: Routes = [
   { path: 'register', component: Register },
@@ -32,6 +33,7 @@ const appRoutes: Routes = [
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
+    PopupModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCRW9U-cqcSo1cIJo2vSTAmakNZW-6ZIZ8'
     }),

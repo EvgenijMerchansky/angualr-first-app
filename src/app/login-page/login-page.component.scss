@@ -92,15 +92,22 @@ agm-map {
 
 button{
   width: initial;
-    height: 40px;
-    border-radius: 15px;
-    border: none;
-    padding: 10px;
-    color: #fff;
-    background-color: #3e9bec;
-    outline: none;
+  height: 40px;
+  border-radius: 15px;
+  border: none;
+  padding: 10px;
+  color: #fff;
+  background-color: #00aabc;
+  outline: none;
+  // display: block;
+  // width: 100%;
+  margin: 10px auto;
 
-    &:hover{
-      background-color: #297ac1;
-    }
+  &:hover{
+    background-color: #07818e;
+  }
+}
+
+.changer{
+
 }
