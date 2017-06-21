@@ -7,18 +7,20 @@ import { Component,AfterViewInit, OnInit, ViewChild, ElementRef } from '@angular
 })
 export class AppComponent implements AfterViewInit {
 
-  @ViewChild('signIn') signInTest;
-  @ViewChild('signOut') signOutTest;
-  @ViewChild('register') register;
-
   title:string = 'Register and login application!';
 
   btn:any = document.getElementById('btn');
 
+  locRel(){
+
+    window.location.reload();
+
+  }
+
   ngAfterViewInit() {
 
     const signOut = document.getElementById('signOut');
-    console.log(signOut);
+
     signOut.style.display = 'none';
 
   }

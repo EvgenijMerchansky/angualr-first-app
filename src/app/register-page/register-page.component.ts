@@ -6,8 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./register-page.component.scss']
 })
 export class RegisterPageComponent implements OnInit {
-  
+
   title:string = 'User registered!';
+  subtitle:string = '<- click to Sign in section';
 
   ngOnInit() {
 

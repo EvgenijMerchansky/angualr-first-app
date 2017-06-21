@@ -51,7 +51,6 @@ export class LoginPageComponent implements AfterViewInit {
                 scrollwheel: true,
                 panControl: true,
                 visible: false,
-                // marker: true,
                 mapTypeControl: false,
                 zoomControl: true,
                 streetViewControl: false,
@@ -64,7 +63,7 @@ export class LoginPageComponent implements AfterViewInit {
 
             const input = this.inputElement.nativeElement;
             const options = {
-                componentRestrictions: {country: 'ukr',}
+                componentRestrictions: {country: 'ukr'}
             };
 
             const autocomplete = new maps.places.Autocomplete(input, options);
@@ -173,11 +172,6 @@ export class LoginPageComponent implements AfterViewInit {
     }
 
     const deleteItem = e.target.parentNode.remove();
-
-  }
-
-  testMethodButtons(){
-
 
   }
 
