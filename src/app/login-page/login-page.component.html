@@ -9,15 +9,17 @@
     </ul>
   </div>
 
-  <div *ngIf="admin() == 'false' ? true : false">
-    <h1>User Page:</h1>
-    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="17" [disableDoubleClickZoom]="true">
-      <agm-marker [latitude]="lat" [longitude]="lng">   </agm-marker>
-      <form class="" method="post" (submit)="addMarker()">
-        <input type="text" name="markerName" value="marker-name" [(ngModel)] = "markerName"/>
-        <input type="submit" name="marker-name" value="map!">
-      </form>
-    </agm-map>
+  <div class='maps' *ngIf="admin() == 'false' ? true : false">
+    <h1 (click)="testMethodButtons()">User Page:</h1>
+    <input type="text" class="input" placeholder="Search..." #inputElement>
+    <button type="button" name="button" (click)="addLocation(inputElement.value)">+ ADD TO LOCATION LIST</button>
+    <div class="map" #mapElement>
+    </div>
+    <ul>
+      <li *ngFor="let z of some">{{z}} <button type="button" (click)="delFunc($event)" name="button">x</button></li>
+    </ul>
   </div>
+
+
 
 </div>

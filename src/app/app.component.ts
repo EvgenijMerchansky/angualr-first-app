@@ -15,35 +15,11 @@ export class AppComponent implements AfterViewInit {
 
   btn:any = document.getElementById('btn');
 
-  public meth(argIn:any,argOut:any,register:any){
-
-    if(location.pathname === '/login'){
-      argIn.nativeElement.innerHTML = 'Sign in';
-      argOut.nativeElement.style.display = 'none';
-      register.nativeElement.innerHTML = 'Register';
-
-    }else if(location.pathname === '/'){
-      argIn.nativeElement.innerHTML = 'Sign in';
-      argOut.nativeElement.style.display = 'none';
-      register.nativeElement.innerHTML = 'Register';
-
-    }else if(location.pathname === '/register'){
-      argIn.nativeElement.innerHTML = 'Sign in';
-
-    }else if(location.pathname != '/' || location.pathname != '/login'){
-      argIn.nativeElement.innerHTML = 'Sign out';
-      register.nativeElement.style.display = 'none';
-      argOut.nativeElement.style.display = 'none';
-      register.nativeElement.style.display = 'none';
-
-    }else if(location.pathname === '/'){
-      argOut.nativeElement.style.display = 'none';
-
-    }
-  }
-
   ngAfterViewInit() {
-    this.meth(this.signInTest,this.signOutTest,this.register);
+
+    const signOut = document.getElementById('signOut');
+    console.log(signOut);
+    signOut.style.display = 'none';
 
   }
 

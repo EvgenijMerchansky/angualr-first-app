@@ -1,8 +1,8 @@
 <div class="home">
   <div class="home__wrapper">
-    <a routerLink="/login" #signIn routerLinkActive="active"  >{{signIn}}</a>
-    <a routerLink="/" #signOut routerLinkActive="active">{{signOut}}</a>
-    <a routerLink="/register" #register routerLinkActive="active">{{register}}</a>
+    <a id="signIn" routerLink="/login" #signIn routerLinkActive="active">Sign in</a>
+    <a id="signOut" routerLink="/" #signOut routerLinkActive="active">Sign Out</a>
+    <a id="register" routerLink="/register" #register routerLinkActive="active">Register</a>
     <router-outlet></router-outlet>
   </div>
 </div>

@@ -1,13 +1,11 @@
 // variables :
 $text-color: #fff;
 
-
 .home{
   background: url('http://wallpaper-gallery.net/images/lollipop-wallpaper-hd/lollipop-wallpaper-hd-19.jpg') no-repeat;
   text-align: center;
   width: 100%;
   height: 100vh;
-  // padding: 20px 0;
 
   &__wrapper{
     width: 100%;
@@ -18,6 +16,12 @@ $text-color: #fff;
     height: 100px;
     color: #00919e;
     text-align: left;
+
+    #signOut{
+      height: auto;
+      text-align: center;
+      margin-top: -17px;
+    }
   }
 
   h1{
@@ -43,6 +47,4 @@ $text-color: #fff;
       color: #eee;
     }
   }
-
-
 }

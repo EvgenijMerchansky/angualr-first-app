@@ -77,6 +77,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() { // погуглить что это за параша и для чего она нужна.
 
+    const signOut = document.getElementById('signOut');
+    console.log(signOut);
+    signOut.style.display = 'none';
+
   };
 
 }
