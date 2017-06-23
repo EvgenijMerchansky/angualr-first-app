@@ -3,7 +3,6 @@ import { LoginComponent } from '../login/login.component';
 import { Directive , Input , Output, EventEmitter } from '@angular/core';
 import { LoginData } from '../login-data.service';
 import { GoogleMapsService } from 'google-maps-angular2';
-import { PopupModule } from 'ng2-opd-popup';  //
 import { Popup } from 'ng2-opd-popup';
 
 @Component({
@@ -17,8 +16,8 @@ export class LoginPageComponent implements AfterViewInit {
 
   @ViewChild('mapElement') mapElement;
   @ViewChild('inputElement') inputElement;
-
-  @ViewChild('popup2') popup2: Popup;
+  @ViewChild('itemval') itemval;
+  @ViewChild('popup2') popup2:any = Popup;
 
   title: string;
   lat: number = 49.994384;
@@ -28,32 +27,74 @@ export class LoginPageComponent implements AfterViewInit {
   };
   locationArray:any = [];
   some = [];
+  items:any;
+  keyArr:any = [];
+  totalitem:any;
+  currentitem:any;
+  markerTitle:any;
+  markerArray = [];
+  testArr2 = this.showUser();
+  mappedArr = this.testArr2.map((elem, index) => {
+
+    const testingObj = {
+      name: elem
+    }
+
+    return testingObj
+  })
 
   private map: any;
 
-    constructor(private gapi: GoogleMapsService,private popup:Popup) {
+  constructor(private gapi: GoogleMapsService,private popup:Popup) {
+
+  }
+
+  YourConfirmEvent(){
+
+      let key = this.itemval.nativeElement.value;
+
+      const currentStorage = localStorage.getItem(this.currentitem);
+
+      console.log(currentStorage)
+
+      localStorage.removeItem(this.totalitem);
+
+      localStorage.setItem(key, currentStorage);
+
+      this.popup2.mainStyle.display = 'none';
+
+      window.location.reload();
+
     }
 
-    ClickButton(e){
-      const changer:any = document.querySelector('.logined-page');
+  ClickButton(e){
 
-      // console.dir(changer.childNodes[0].nextElementSibling.children[1].lastChild.nextSibling);
-      // changer.style.background = "black";
-      // changer.stopPropagation();
-      // changer.style.opacity = ".1";
-      setTimeout(() => {
+      let item = e.target.parentNode.childNodes[0].data;
+      let some1 = item.substr(0, item.length - 1);
 
-      },1000)
+      const nextWrap = this.mappedArr.filter((elem,index) => {
+        return elem.name === some1;
+      })
 
-      // changer.style.opacity = ".5";
-      // changer.className = 'changer';
-      // changer.className = 'changer';
-      // changer
-        // opacity: .5;
-      // changer.style.marginLeft = '1';
-      // console.dir(e.currentTarget.parentNode.childNodes[0].data);
-      // console.log(e.target.parentNode.childNodes[0].data);
-      let zacep = e.target.parentNode.childNodes[0].data
+      for (let key in localStorage){
+         this.keyArr.push(key);
+      }
+
+      const localChange = this.keyArr.filter((elem, index) => {
+
+        if(elem === some1){
+
+          return elem === some1;
+        }
+
+      })
+
+      const totalChange = localChange[0];
+
+      this.currentitem = some1;
+
+      this.totalitem = totalChange;
+
       this.popup.options = {
         header: "Change users",
         color: "#00abba", // red, blue....
@@ -68,11 +109,10 @@ export class LoginPageComponent implements AfterViewInit {
       };
 
       this.popup.show(this.popup2.options);
+
     }
 
-
-
-    ngAfterViewInit(): void {
+  ngAfterViewInit(): void {
 
       const signIn = document.getElementById('signIn');
       signIn.style.display = 'none';
@@ -83,7 +123,15 @@ export class LoginPageComponent implements AfterViewInit {
       const register = document.getElementById('register');
       register.style.display = 'none';
 
+      //
+
         this.gapi.init.then((maps: any) => {
+
+          // setTimeout(() => {
+            console.log(this.inputElement.onkedown);
+          // },4000)
+
+
 
             const loc = new maps.LatLng(49.994384, 36.236568);
 
@@ -104,51 +152,52 @@ export class LoginPageComponent implements AfterViewInit {
             });
 
             const input = this.inputElement.nativeElement;
+
             const options = {
                 componentRestrictions: {country: 'ukr'}
             };
 
             const autocomplete = new maps.places.Autocomplete(input, options);
 
-            autocomplete.addListener('place_changed', () => {
+            const locationArray:any = [];
+
+            autocomplete.addListener('place_changed', (e) => {
+              console.log(e);
                 const place = autocomplete.getPlace();
                 const location = place.geometry.location;
 
                 const laten = place.geometry.location.lat();
                 const lngF = place.geometry.location.lng();
-                const num1 = laten;
-                const num2 = lngF;
 
-                  const indiv = {
-                    laten: new maps.LatLng(num1, num2)
-                  }
+                const indiv = {
+                  laten: new maps.LatLng(laten, lngF)
+                }
 
-                this.locationArray.push(indiv);
+                locationArray.push(indiv);
 
-                // let bounds = ;
+                let bounds = new maps.LatLngBounds();
 
-                for(let i = 0; i < this.locationArray.length; i++){
+                for(let i = 0; i < locationArray.length; i++){
 
                   const marker = new maps.Marker({
-                    position: this.locationArray[i].laten,
+                    position: locationArray[i].laten,
                     map: this.map,
                     title: this.inputElement.nativeElement.value,
                     visible: true,
                     draggable: true
                   });
 
-                  const pushed = marker.title;
+                  this.markerTitle = marker.title;
 
-                  // bounds.extend ();
-                  // this.map.fitBounds(new maps.LatLngBounds(this.locationArray[i].laten));
+                  console.log(this.markerTitle);
+
+                  bounds.extend(locationArray[i].laten);
 
                 }
 
-                this.map.setZoom(13);
-                this.map.setCenter({
-                    lat: location.lat(),
-                    lng: location.lng()
-                });
+                this.markerArray.push(this.markerTitle);
+
+                this.map.fitBounds(bounds);
 
             });
 
@@ -160,7 +209,7 @@ export class LoginPageComponent implements AfterViewInit {
 
     const listLocations = [];
 
-    this.some.push(arg);
+    // this.some.push(arg);
 
     return listLocations;
 
@@ -177,6 +226,7 @@ export class LoginPageComponent implements AfterViewInit {
   showUser() {
 
     const testArr = [];
+
     const store = localStorage;
 
     for (let i in store){
@@ -188,24 +238,8 @@ export class LoginPageComponent implements AfterViewInit {
     return testArr;
   }
 
-  testArr2 = this.showUser();
-
-  mappedArr = this.testArr2.map((elem, index) => {
-
-    const testingObj = {
-      name: elem
-    }
-
-    return testingObj
-  })
-
-  YourConfirmEvent(){
-
-    window.location.reload();
-
-  }
-
   delFunc(e) {
+
     console.dir(e.target.parentNode.childNodes[0].value)
 
     const elemTargetting = e.target.parentNode.childNodes[0].value;
@@ -213,6 +247,9 @@ export class LoginPageComponent implements AfterViewInit {
     for (let i in localStorage){
 
       if(i === elemTargetting){
+
+        console.log(i, elemTargetting);
+        console.log(this.mappedArr)
 
         localStorage.removeItem(i);
 

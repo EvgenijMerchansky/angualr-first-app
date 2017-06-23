@@ -4,16 +4,16 @@
   <div *ngIf="admin() == 'true' ? true : false" class="admin-panel">
     <h1>Administrator Panel</h1>
 
-    <popup #popup2 (confirmClick)="YourConfirmEvent()">
+    <popup #popup2 (confirmClick)="YourConfirmEvent($event)">
       You can change users names in this block:
       <ul>
-        <li *ngFor="let i of mappedArr"><input type="text" name="" value="" [(ngModel)] = i.name/><button type="button" (click)="delFunc($event)" name="button">x</button></li>
+        <li><input type="text" name="" value="{{currentitem}}" [(ngModel)]="items" #itemval /><button type="button" (click)="delFunc($event)" name="button">Delete</button></li>
       </ul>
     </popup>
-    <h2>Registrated users:</h2>
-    <button type="button" name="button" (click)="ClickButton($event)">Change users</button>
+    <h2 (click)="test()">Registrated users:</h2>
+
     <ul>
-      <li *ngFor="let i of mappedArr">{{i.name}}</li>
+      <li *ngFor="let i of mappedArr">{{i.name}} <button type="button" name="button" (click)="ClickButton($event)">Change user</button></li>
     </ul>
   </div>
 
@@ -21,11 +21,11 @@
 
     <h1>User Page:</h1>
     <input type="text" class="input" placeholder="Search..." #inputElement>
-    <button type="button" name="button" (click)="addLocation(inputElement.value)">+ ADD TO LOCATION LIST</button>
+    <!-- <button type="button" name="button" (click)="addLocation(inputElement.value)">+ ADD TO LOCATION LIST</button> -->
     <div class="map" #mapElement>
     </div>
     <ul>
-      <li *ngFor="let z of some">{{z}} <button type="button" (click)="delFunc($event)" name="button">x</button></li>
+      <li *ngFor="let z of markerArray">{{z}} <button type="button" (click)="delFunc($event)" name="button">x</button></li>
     </ul>
   </div>
 
