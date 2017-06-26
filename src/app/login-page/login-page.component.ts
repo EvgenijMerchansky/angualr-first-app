@@ -22,18 +22,23 @@ export class LoginPageComponent implements AfterViewInit {
   title: string;
   lat: number = 49.994384;
   lng: number = 36.236568;
-  reus = {
-    reuser: ''
-  };
-  locationArray:any = [];
+  locationsArray:any = [];
   some = [];
-  items:any;
   keyArr:any = [];
   totalitem:any;
   currentitem:any;
   markerTitle:any;
   markerArray = [];
+  globalName:any;
+  //
+  filtered:string[] = [];
+  //
   testArr2 = this.showUser();
+
+  arrayForRender:any = [];
+
+  changeUserData:string;
+
   mappedArr = this.testArr2.map((elem, index) => {
 
     const testingObj = {
@@ -49,13 +54,11 @@ export class LoginPageComponent implements AfterViewInit {
 
   }
 
-  YourConfirmEvent(){
+  YourConfirmEvent(e){
 
       let key = this.itemval.nativeElement.value;
 
       const currentStorage = localStorage.getItem(this.currentitem);
-
-      console.log(currentStorage)
 
       localStorage.removeItem(this.totalitem);
 
@@ -70,11 +73,10 @@ export class LoginPageComponent implements AfterViewInit {
   ClickButton(e){
 
       let item = e.target.parentNode.childNodes[0].data;
+
       let some1 = item.substr(0, item.length - 1);
 
-      const nextWrap = this.mappedArr.filter((elem,index) => {
-        return elem.name === some1;
-      })
+      this.changeUserData = some1;
 
       for (let key in localStorage){
          this.keyArr.push(key);
@@ -85,6 +87,7 @@ export class LoginPageComponent implements AfterViewInit {
         if(elem === some1){
 
           return elem === some1;
+
         }
 
       })
@@ -114,102 +117,116 @@ export class LoginPageComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
 
-      const signIn = document.getElementById('signIn');
-      signIn.style.display = 'none';
 
-      const signOut = document.getElementById('signOut');
-      signOut.style.display = 'block';
 
-      const register = document.getElementById('register');
-      register.style.display = 'none';
+
+    window.document.addEventListener('keydown', (e) => {
+      if(e.key == 'Enter'){
+        const input:any = document.querySelector('.input');
+        // console.dir(input.value);
+
+        this.arrayForRender.push(input.value);
+      }
+    });
+
+    const signIn = document.getElementById('signIn');
+    signIn.style.display = 'none';
+
+    const signOut = document.getElementById('signOut');
+    signOut.style.display = 'block';
+
+    const register = document.getElementById('register');
+    register.style.display = 'none';
 
       //
 
-        this.gapi.init.then((maps: any) => {
+    this.gapi.init.then((maps: any) => {
 
-          // setTimeout(() => {
-            console.log(this.inputElement.onkedown);
-          // },4000)
+      const loc = new maps.LatLng(49.994384, 36.236568);
+
+      this.map = new maps.Map(this.mapElement.nativeElement, {
+        zoom: 13,
+        center: loc,
+        scrollwheel: true,
+        panControl: true,
+        visible: false,
+        mapTypeControl: false,
+        zoomControl: true,
+        streetViewControl: false,
+        scaleControl: true,
+        zoomControlOptions: {
+          style: maps.ZoomControlStyle.LARGE,
+          position: maps.ControlPosition.RIGHT_BOTTOM
+        }
+      });
+
+      const input = this.inputElement.nativeElement;
+
+      const options = {
+        componentRestrictions: {country: 'ukr'}
+      };
+
+      const autocomplete = new maps.places.Autocomplete(input, options);
+
+      let locationArray:any = [];
+
+      autocomplete.addListener('place_changed', (e) => {
+
+        const place = autocomplete.getPlace();
+        const location = place.geometry.location;
+
+        const laten = place.geometry.location.lat();
+        const lngF = place.geometry.location.lng();
+
+        const indiv = {
+          laten: new maps.LatLng(laten, lngF),
+          name: this.inputElement.nativeElement.value,
+          id: (() => {
+            return Math.random().toString(36).substr(2, 9);
+          })()
+        }
+
+        this.locationsArray.push(indiv);
+
+        let bounds = new maps.LatLngBounds();
+
+        for(let i = 0; i < this.locationsArray.length; i++){
+
+          const marker = new maps.Marker({
+            position: this.locationsArray[i].laten,
+            map: this.map,
+            title: this.inputElement.nativeElement.value,
+            visible: true,
+            draggable: true
+          });
+
+          marker.id = (() => {
+            return Math.random().toString(36).substr(2, 9);
+          })();
+
+          this.markerTitle = marker.title;
+
+          bounds.extend(this.locationsArray[i].laten);
+
+        }
+
+        this.markerArray.push(this.markerTitle);
+
+        this.map.fitBounds(bounds);
+
+      });
+
+    });
+
+  }
 
 
-
-            const loc = new maps.LatLng(49.994384, 36.236568);
-
-            this.map = new maps.Map(this.mapElement.nativeElement, {
-                zoom: 13,
-                center: loc,
-                scrollwheel: true,
-                panControl: true,
-                visible: false,
-                mapTypeControl: false,
-                zoomControl: true,
-                streetViewControl: false,
-                scaleControl: true,
-                zoomControlOptions: {
-                    style: maps.ZoomControlStyle.LARGE,
-                    position: maps.ControlPosition.RIGHT_BOTTOM
-                }
-            });
-
-            const input = this.inputElement.nativeElement;
-
-            const options = {
-                componentRestrictions: {country: 'ukr'}
-            };
-
-            const autocomplete = new maps.places.Autocomplete(input, options);
-
-            const locationArray:any = [];
-
-            autocomplete.addListener('place_changed', (e) => {
-              console.log(e);
-                const place = autocomplete.getPlace();
-                const location = place.geometry.location;
-
-                const laten = place.geometry.location.lat();
-                const lngF = place.geometry.location.lng();
-
-                const indiv = {
-                  laten: new maps.LatLng(laten, lngF)
-                }
-
-                locationArray.push(indiv);
-
-                let bounds = new maps.LatLngBounds();
-
-                for(let i = 0; i < locationArray.length; i++){
-
-                  const marker = new maps.Marker({
-                    position: locationArray[i].laten,
-                    map: this.map,
-                    title: this.inputElement.nativeElement.value,
-                    visible: true,
-                    draggable: true
-                  });
-
-                  this.markerTitle = marker.title;
-
-                  console.log(this.markerTitle);
-
-                  bounds.extend(locationArray[i].laten);
-
-                }
-
-                this.markerArray.push(this.markerTitle);
-
-                this.map.fitBounds(bounds);
-
-            });
-
-        });
-
-    }
 
   addLocation(arg){
 
     const listLocations = [];
 
-    // this.some.push(arg);
+    this.some.push(arg);
 
     return listLocations;
 
@@ -240,24 +257,39 @@ export class LoginPageComponent implements AfterViewInit {
 
   delFunc(e) {
 
-    console.dir(e.target.parentNode.childNodes[0].value)
-
     const elemTargetting = e.target.parentNode.childNodes[0].value;
+    localStorage.removeItem(elemTargetting);
 
-    for (let i in localStorage){
+    window.location.reload();
 
-      if(i === elemTargetting){
+  }
 
-        console.log(i, elemTargetting);
-        console.log(this.mappedArr)
+  delFuncLoc(e){
 
-        localStorage.removeItem(i);
+    const listvalue = e.target.parentNode.innerText;
+    let processedValue = listvalue.substr(0, listvalue.length - 2);
 
+    this.globalName = processedValue;
+
+    console.log(this.locationsArray);
+
+    for(let i = 0;  i < this.locationsArray.length; i++){
+      // console.log(this.locationArray[i].name);
+      if(processedValue == this.locationsArray[i].name){
+        console.log(processedValue, ' <- in my button | run | in array -> ' , this.locationsArray[i].name);
+
+        this.locationsArray.splice([i],1);
+        console.log(this.locationsArray);
       }
-
+//   // console.log(this.locationArray[i].name);
+//   let locationName = this.locationArray[i].name;
+//   if(this.locationArray[i].name == processedValue){
+//     // console.log(this.locationArray[i], 'совпадение');
+//     delete this.locationArray[i];
+//     // console.log(this.locationArray[i], 'my locationArray');
+//     // console.log(this.locationArray, 'this.locationArray');
+//   }
     }
-
-    const deleteItem = e.target.parentNode.remove();
 
   }
 
