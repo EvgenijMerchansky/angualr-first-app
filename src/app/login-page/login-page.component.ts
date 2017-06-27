@@ -5,9 +5,7 @@ import { LoginData } from '../login-data.service';
 import { GoogleMapsService } from 'google-maps-angular2';
 import { Popup } from 'ng2-opd-popup';
 
-// const some:any = [];
-
-console.log(this.some,'my some');
+const globalData:any = [];
 
 @Component({
   selector: 'app-login-page',
@@ -26,23 +24,15 @@ export class LoginPageComponent implements AfterViewInit {
   title: string;
   lat: number = 49.994384;
   lng: number = 36.236568;
-  locationsArray:any = [];
-  // some = [];
   keyArr:any = [];
   totalitem:any;
   currentitem:any;
   markerTitle:any;
   markerArray = [];
-  globalName:any;
-  //
   filtered:string[] = [];
-  //
-  testArr2 = this.showUser();
-
   arrayForRender:any = [];
-
   changeUserData:string;
-
+  testArr2 = this.showUser();
   mappedArr = this.testArr2.map((elem, index) => {
 
     const testingObj = {
@@ -121,14 +111,10 @@ export class LoginPageComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
 
-
-
-
     window.document.addEventListener('keydown', (e) => {
       if(e.key == 'Enter'){
-        const input:any = document.querySelector('.input');
-        // console.dir(input.value);
 
+        const input:any = document.querySelector('.input');
         this.arrayForRender.push(input.value);
       }
     });
@@ -153,7 +139,7 @@ export class LoginPageComponent implements AfterViewInit {
         center: loc,
         scrollwheel: true,
         panControl: true,
-        visible: false,
+        visible: true,
         mapTypeControl: false,
         zoomControl: true,
         streetViewControl: false,
@@ -172,8 +158,6 @@ export class LoginPageComponent implements AfterViewInit {
 
       const autocomplete = new maps.places.Autocomplete(input, options);
 
-      let locationArray:any = [];
-
       autocomplete.addListener('place_changed', (e) => {
 
         const place = autocomplete.getPlace();
@@ -187,31 +171,50 @@ export class LoginPageComponent implements AfterViewInit {
           name: this.inputElement.nativeElement.value,
           id: (() => {
             return Math.random().toString(36).substr(2, 9);
-          })()
+          })(),
         }
 
-        some.push(indiv);
-        console.log(some,' это мой глобальный массив');
+        globalData.push(indiv);
 
         let bounds = new maps.LatLngBounds();
 
-        for(let i = 0; i < some.length; i++){
+        for(let i = 0; i < globalData.length; i++){
 
-          const marker = new maps.Marker({
-            position: some[i].laten,
+            const marker = new maps.Marker({
+            position: globalData[i].laten,
             map: this.map,
             title: this.inputElement.nativeElement.value,
-            visible: true,
-            draggable: true
+            visible: globalData[i].name == '' ? false : true,
+            draggable: true,
           });
 
-          marker.id = (() => {
-            return Math.random().toString(36).substr(2, 9);
-          })();
+
+          const deleteBtns:any = document.querySelectorAll('.del-btn');
+
+          for(let i = 0; i < deleteBtns.length; i++){
+
+              deleteBtns[i].addEventListener('click',(e) => {
+
+                const listvalue = e.target.parentNode.innerText;
+                let processedValue = listvalue.substr(0, listvalue.length - 2);
+
+                if(e.target.className == 'del-btn'){
+
+                  if(marker.title == processedValue){
+
+                    marker.setMap(null);
+
+                  }
+
+                }
+
+              });
+
+          }
 
           this.markerTitle = marker.title;
 
-          bounds.extend(some[i].laten);
+          bounds.extend(globalData[i].laten);
 
         }
 
@@ -225,13 +228,9 @@ export class LoginPageComponent implements AfterViewInit {
 
   }
 
-
-
   addLocation(arg){
 
     const listLocations = [];
-
-    // this.some.push(arg);
 
     return listLocations;
 
@@ -274,26 +273,26 @@ export class LoginPageComponent implements AfterViewInit {
     const listvalue = e.target.parentNode.innerText;
     let processedValue = listvalue.substr(0, listvalue.length - 2);
 
-    this.globalName = processedValue;
+    for(let i = 0; i < this.arrayForRender.length; i++){
 
-    console.log(this.locationsArray);
 
-    for(let i = 0;  i < some.length; i++){
-      console.log(some[i]);
-      if(processedValue == some[i].name){
-        // console.log(processedValue, ' <- in my button | run | in array -> ' , this.locationsArray[i].name);
+      if(processedValue == this.arrayForRender[i]){
+        this.arrayForRender.splice(i,1)
 
-        some.splice([i],1);
-        console.log(some);
       }
-//   // console.log(this.locationArray[i].name);
-//   let locationName = this.locationArray[i].name;
-//   if(this.locationArray[i].name == processedValue){
-//     // console.log(this.locationArray[i], 'совпадение');
-//     delete this.locationArray[i];
-//     // console.log(this.locationArray[i], 'my locationArray');
-//     // console.log(this.locationArray, 'this.locationArray');
-//   }
+
+    }
+
+    for(let i = 0; i < globalData.length; i++){
+
+      if(processedValue == globalData[i].name){
+
+        globalData[i].name = '';
+
+        globalData.splice(i,1);
+
+      }
+
     }
 
   }

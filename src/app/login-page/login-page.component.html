@@ -24,7 +24,7 @@
     <div class="map" #mapElement>
     </div>
     <ul>
-      <li *ngFor="let z of arrayForRender ? arrayForRender : filtered">{{z}} <button type="button" class='del-btn' (click)="delFuncLoc($event)" name="button">x</button></li>
+      <li *ngFor="let z of arrayForRender">{{z}} <button type="button" class='del-btn' (click)="delFuncLoc($event)" name="button">x</button></li>
     </ul>
   </div>
 

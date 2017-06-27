@@ -38,7 +38,7 @@ const appRoutes: Routes = [
       apiKey: 'AIzaSyCRW9U-cqcSo1cIJo2vSTAmakNZW-6ZIZ8'
     }),
     GoogleMapsModule.forRoot({
-      url: 'https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBK17yiB1dUzX9tjnXLDIpCvCnyovcmdPc'
+      url: 'https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyALvfBmm9hDNhRW2cu1UW3Xz27Av54p_RM'
     }),
     BrowserModule,
     FormsModule,
