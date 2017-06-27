@@ -5,6 +5,10 @@ import { LoginData } from '../login-data.service';
 import { GoogleMapsService } from 'google-maps-angular2';
 import { Popup } from 'ng2-opd-popup';
 
+// const some:any = [];
+
+console.log(this.some,'my some');
+
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
@@ -23,7 +27,7 @@ export class LoginPageComponent implements AfterViewInit {
   lat: number = 49.994384;
   lng: number = 36.236568;
   locationsArray:any = [];
-  some = [];
+  // some = [];
   keyArr:any = [];
   totalitem:any;
   currentitem:any;
@@ -186,14 +190,15 @@ export class LoginPageComponent implements AfterViewInit {
           })()
         }
 
-        this.locationsArray.push(indiv);
+        some.push(indiv);
+        console.log(some,' это мой глобальный массив');
 
         let bounds = new maps.LatLngBounds();
 
-        for(let i = 0; i < this.locationsArray.length; i++){
+        for(let i = 0; i < some.length; i++){
 
           const marker = new maps.Marker({
-            position: this.locationsArray[i].laten,
+            position: some[i].laten,
             map: this.map,
             title: this.inputElement.nativeElement.value,
             visible: true,
@@ -206,7 +211,7 @@ export class LoginPageComponent implements AfterViewInit {
 
           this.markerTitle = marker.title;
 
-          bounds.extend(this.locationsArray[i].laten);
+          bounds.extend(some[i].laten);
 
         }
 
@@ -226,7 +231,7 @@ export class LoginPageComponent implements AfterViewInit {
 
     const listLocations = [];
 
-    this.some.push(arg);
+    // this.some.push(arg);
 
     return listLocations;
 
@@ -273,13 +278,13 @@ export class LoginPageComponent implements AfterViewInit {
 
     console.log(this.locationsArray);
 
-    for(let i = 0;  i < this.locationsArray.length; i++){
-      // console.log(this.locationArray[i].name);
-      if(processedValue == this.locationsArray[i].name){
-        console.log(processedValue, ' <- in my button | run | in array -> ' , this.locationsArray[i].name);
+    for(let i = 0;  i < some.length; i++){
+      console.log(some[i]);
+      if(processedValue == some[i].name){
+        // console.log(processedValue, ' <- in my button | run | in array -> ' , this.locationsArray[i].name);
 
-        this.locationsArray.splice([i],1);
-        console.log(this.locationsArray);
+        some.splice([i],1);
+        console.log(some);
       }
 //   // console.log(this.locationArray[i].name);
 //   let locationName = this.locationArray[i].name;
