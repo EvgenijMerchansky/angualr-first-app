@@ -65,6 +65,8 @@ export class LoginPageComponent implements AfterViewInit {
 
     }
 
+
+
   ClickButton(e){
 
     // * "change user" button in list
@@ -74,9 +76,15 @@ export class LoginPageComponent implements AfterViewInit {
 
       this.changeUserData = some1;
 
+
+
       for (let key in localStorage){
+
          this.keyArr.push(key);
+
       }
+
+
 
       const localChange = this.keyArr.filter((elem, index) => {
 
@@ -88,6 +96,8 @@ export class LoginPageComponent implements AfterViewInit {
 
       })
 
+
+
       const totalChange = localChange[0];
 
       this.currentitem = some1;
@@ -95,6 +105,7 @@ export class LoginPageComponent implements AfterViewInit {
       this.totalitem = totalChange;
 
       this.popup.options = {
+
         header: "Change users",
         color: "#00abba", // red, blue....
         widthProsentage: 30, // The with of the popou measured by browser width
@@ -105,23 +116,30 @@ export class LoginPageComponent implements AfterViewInit {
         confirmBtnClass: "btn btn-default", // your class for styling the confirm button
         cancleBtnClass: "btn btn-default", // you class for styling the cancel button
         animation: "fadeInDown" // 'fadeInLeft', 'fadeInRight', 'fadeInUp', 'bounceIn','bounceInDown'
+
       };
 
       this.popup.show(this.popup2.options);
 
     }
 
+
+
   ngAfterViewInit(): void {
+
+
 
     // * get value for list
 
-    window.document.addEventListener('keydown', (e) => {
-      if(e.key == 'Enter'){
+    document.addEventListener('keydown', (e) => {
 
-        const input:any = document.querySelector('.input');
-        this.arrayForRender.push(input.value);
-      }
+      const input:any = document.querySelector('.input');
+
+      e.key == 'Enter' ? this.arrayForRender.push(input.value) : this.arrayForRender;
+
     });
+
+
 
     // * header buttons
 
@@ -135,6 +153,8 @@ export class LoginPageComponent implements AfterViewInit {
 
     register.style.display = 'none';
 
+
+
     // * GMApi , create map and markers
 
     this.gapi.init.then((maps: any) => {
@@ -144,6 +164,8 @@ export class LoginPageComponent implements AfterViewInit {
             options = {
               componentRestrictions: {country: ['uk','us','rus','ukr','au']} // countries
             };
+
+
 
       this.map = new maps.Map(this.mapElement.nativeElement, {
         zoom: 13,
@@ -161,7 +183,11 @@ export class LoginPageComponent implements AfterViewInit {
         }
       });
 
+
+
       const autocomplete = new maps.places.Autocomplete(input, options);
+
+
 
       autocomplete.addListener('place_changed', (e) => {
 
@@ -169,66 +195,69 @@ export class LoginPageComponent implements AfterViewInit {
               location = place.geometry.location,
               laten = place.geometry.location.lat(),
               lngF = place.geometry.location.lng(),
+              deleteBtns:any = document.querySelectorAll('.del-btn'),
+
               indiv = {
                 laten: new maps.LatLng(laten, lngF),
                 name: this.inputElement.nativeElement.value,
-                id: (() => {
-                  return Math.random().toString(36).substr(2, 9);
-                })(),
-              }
+              };
 
         globalData.push(indiv);
+
+
+
 
         let bounds = new maps.LatLngBounds();
 
         for(let i = 0; i < globalData.length; i++){
 
-            const marker = new maps.Marker({
+          const marker = new maps.Marker({
             position: globalData[i].laten,
             map: this.map,
             title: this.inputElement.nativeElement.value,
-            visible: globalData[i].name == '' ? false : true,
+            visible: true,
             draggable: true,
-
+            id: (() => {
+              return Math.random().toString(36).substr(2, 9);
+            })()
           });
 
 
-          const deleteBtns:any = document.querySelectorAll('.del-btn');
+
 
           for(let i = 0; i < deleteBtns.length; i++){
 
             deleteBtns[i].addEventListener('click',(e) => {
 
-              const listvalue = e.target.parentNode.innerText,
-                    processedValue = listvalue.substr(0, listvalue.length - 2);
+              deleteBtns[i].id = marker.id;
 
-              if(e.target.className == 'del-btn' && marker.title == processedValue){
+              deleteBtns[i].id == marker.id ? marker.setMap(null) : marker
 
-                marker.setMap(null);
+            })
 
-              }
 
-            });
+
+
+            this.markerTitle = marker.title;
+
+            bounds.extend(globalData[i].laten);
 
           }
 
-          this.markerTitle = marker.title;
 
-          bounds.extend(globalData[i].laten);
+
+          this.markerArray.push(this.markerTitle);
+
+          this.map.fitBounds(bounds);
 
         }
-
-        this.markerArray.push(this.markerTitle);
-
-        this.map.fitBounds(bounds);
 
       });
 
     });
-
-    // GMApi END
-
+  // * GMApi END
   }
+
 
   admin(){
 
@@ -239,6 +268,8 @@ export class LoginPageComponent implements AfterViewInit {
     return adminBool
 
   }
+
+
 
   showUser() {
 
@@ -257,16 +288,21 @@ export class LoginPageComponent implements AfterViewInit {
     return testArr;
   }
 
+
+
   delFunc(e) {
 
     // * delete user function
 
     const elemTargetting = e.target.parentNode.childNodes[0].value;
+
     localStorage.removeItem(elemTargetting);
 
     window.location.reload();
 
   }
+
+
 
   delFuncLoc(e){
 
@@ -277,23 +313,13 @@ export class LoginPageComponent implements AfterViewInit {
 
     for(let i = 0; i < this.arrayForRender.length; i++){
 
-
-      if(processedValue == this.arrayForRender[i]){
-        this.arrayForRender.splice(i,1)
-
-      }
+      processedValue == this.arrayForRender[i] ? this.arrayForRender.splice(i,1) : this.arrayForRender;
 
     }
 
     for(let i = 0; i < globalData.length; i++){
 
-      if(processedValue == globalData[i].name){
-
-        globalData[i].name = '';
-
-        globalData.splice(i,1);
-
-      }
+      processedValue == globalData[i].name ? globalData.splice(i,1) : globalData;
 
     }
 

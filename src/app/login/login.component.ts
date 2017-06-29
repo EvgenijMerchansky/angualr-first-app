@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
 
   show = function(e,login,password){
 
-    // * user login and create admin function 
+    // * user login and create admin function
 
     if(this.model.login == 'admin1' && this.model.password == 'admin1111'){
 
@@ -25,11 +25,13 @@ export class LoginComponent implements OnInit {
 
     }else{
 
-      this.adminValid = false; // - - -
+      this.adminValid = false;
 
       localStorage.setItem('adminGeneral', this.adminValid);
 
     }
+
+
 
     const names = [];
 
@@ -46,27 +48,31 @@ export class LoginComponent implements OnInit {
 
     }
 
+
+
     const keys = names.map((elem, index) => {
 
-      if(this.model.login == elem['key']){
+      let boolLog:boolean = false;
 
-        const boolLog = true;
-        return boolLog
+      this.model.login == elem['key'] ? boolLog = true : boolLog = false;
 
-      }
+      return boolLog
 
     });
 
+
+
     const values = names.map((elem, index) => {
 
-      if(this.model.password == elem['value']){
+      let boolPass:boolean = false;
 
-        const boolPass = true;
+      this.model.password == elem['value'] ? boolPass = true : boolPass = false;
+
         return boolPass
 
-      }
-
     })
+
+
 
     const logSome = keys.some(x => x == true),
           passSome = values.some(x => x == true); // true
@@ -74,15 +80,21 @@ export class LoginComponent implements OnInit {
     if(logSome && passSome == true){
 
       const totalTrue = true;
+
       return totalTrue;
 
     }
 
+
+
   }
+
+
 
   ngOnInit() {
 
     const signOut = document.getElementById('signOut');
+
     signOut.style.display = 'none';
 
   };

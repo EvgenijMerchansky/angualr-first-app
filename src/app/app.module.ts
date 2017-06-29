@@ -35,7 +35,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     PopupModule.forRoot(),
     GoogleMapsModule.forRoot({
-      url: 'https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyALvfBmm9hDNhRW2cu1UW3Xz27Av54p_RM'
+      url: 'https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyD0CUBE7qaj_nTmbhuVQWx8-LqpLW3Ml9M'
     }),
     BrowserModule,
     FormsModule,
