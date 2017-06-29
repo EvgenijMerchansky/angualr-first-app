@@ -16,6 +16,8 @@ export class Register {
 
   log = function(e){
 
+    // * set new user values
+
     localStorage.setItem(this.regFields.newLogin, this.regFields.newPass);
 
   }

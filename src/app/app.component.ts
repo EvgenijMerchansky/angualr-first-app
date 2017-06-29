@@ -13,11 +13,15 @@ export class AppComponent implements AfterViewInit {
 
   locRel(){
 
+    // needed for refresh data in buttons
+
     window.location.reload();
 
   }
 
   ngAfterViewInit() {
+
+    // hide signOut button in login page
 
     const signOut = document.getElementById('signOut');
 

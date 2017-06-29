@@ -1,7 +1,6 @@
 import { Component, AfterViewInit,ViewChild } from '@angular/core';
 import { LoginComponent } from '../login/login.component';
 import { Directive , Input , Output, EventEmitter } from '@angular/core';
-import { LoginData } from '../login-data.service';
 import { GoogleMapsService } from 'google-maps-angular2';
 import { Popup } from 'ng2-opd-popup';
 
@@ -11,8 +10,7 @@ const globalData:any = [];
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss'],
-  inputs: ['model'],
-  providers: [LoginData]
+  inputs: ['model']
 })
 export class LoginPageComponent implements AfterViewInit {
 
@@ -21,18 +19,17 @@ export class LoginPageComponent implements AfterViewInit {
   @ViewChild('itemval') itemval;
   @ViewChild('popup2') popup2:any = Popup;
 
-  title: string;
-  lat: number = 49.994384;
-  lng: number = 36.236568;
   keyArr:any = [];
   totalitem:any;
   currentitem:any;
   markerTitle:any;
   markerArray = [];
-  filtered:string[] = [];
   arrayForRender:any = [];
   changeUserData:string;
   testArr2 = this.showUser();
+
+  // * user list array
+
   mappedArr = this.testArr2.map((elem, index) => {
 
     const testingObj = {
@@ -44,11 +41,15 @@ export class LoginPageComponent implements AfterViewInit {
 
   private map: any;
 
+  // * my constructor for map
+
   constructor(private gapi: GoogleMapsService,private popup:Popup) {
 
   }
 
   YourConfirmEvent(e){
+
+    // * "confirm" button in popup
 
       let key = this.itemval.nativeElement.value;
 
@@ -66,9 +67,10 @@ export class LoginPageComponent implements AfterViewInit {
 
   ClickButton(e){
 
-      let item = e.target.parentNode.childNodes[0].data;
+    // * "change user" button in list
 
-      let some1 = item.substr(0, item.length - 1);
+      let item = e.target.parentNode.childNodes[0].data,
+          some1 = item.substr(0, item.length - 1);
 
       this.changeUserData = some1;
 
@@ -111,6 +113,8 @@ export class LoginPageComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
 
+    // * get value for list
+
     window.document.addEventListener('keydown', (e) => {
       if(e.key == 'Enter'){
 
@@ -119,20 +123,27 @@ export class LoginPageComponent implements AfterViewInit {
       }
     });
 
-    const signIn = document.getElementById('signIn');
+    // * header buttons
+
+    const signIn = document.getElementById('signIn'),
+          signOut = document.getElementById('signOut'),
+          register = document.getElementById('register');
+
     signIn.style.display = 'none';
 
-    const signOut = document.getElementById('signOut');
     signOut.style.display = 'block';
 
-    const register = document.getElementById('register');
     register.style.display = 'none';
 
-      //
+    // * GMApi , create map and markers
 
     this.gapi.init.then((maps: any) => {
 
-      const loc = new maps.LatLng(49.994384, 36.236568);
+      const loc = new maps.LatLng(49.994384, 36.236568), // default
+            input = this.inputElement.nativeElement,
+            options = {
+              componentRestrictions: {country: ['uk','us','rus','ukr','au']} // countries
+            };
 
       this.map = new maps.Map(this.mapElement.nativeElement, {
         zoom: 13,
@@ -150,29 +161,21 @@ export class LoginPageComponent implements AfterViewInit {
         }
       });
 
-      const input = this.inputElement.nativeElement;
-
-      const options = {
-        componentRestrictions: {country: 'ukr'}
-      };
-
       const autocomplete = new maps.places.Autocomplete(input, options);
 
       autocomplete.addListener('place_changed', (e) => {
 
-        const place = autocomplete.getPlace();
-        const location = place.geometry.location;
-
-        const laten = place.geometry.location.lat();
-        const lngF = place.geometry.location.lng();
-
-        const indiv = {
-          laten: new maps.LatLng(laten, lngF),
-          name: this.inputElement.nativeElement.value,
-          id: (() => {
-            return Math.random().toString(36).substr(2, 9);
-          })(),
-        }
+        const place = autocomplete.getPlace(),
+              location = place.geometry.location,
+              laten = place.geometry.location.lat(),
+              lngF = place.geometry.location.lng(),
+              indiv = {
+                laten: new maps.LatLng(laten, lngF),
+                name: this.inputElement.nativeElement.value,
+                id: (() => {
+                  return Math.random().toString(36).substr(2, 9);
+                })(),
+              }
 
         globalData.push(indiv);
 
@@ -186,6 +189,7 @@ export class LoginPageComponent implements AfterViewInit {
             title: this.inputElement.nativeElement.value,
             visible: globalData[i].name == '' ? false : true,
             draggable: true,
+
           });
 
 
@@ -193,22 +197,18 @@ export class LoginPageComponent implements AfterViewInit {
 
           for(let i = 0; i < deleteBtns.length; i++){
 
-              deleteBtns[i].addEventListener('click',(e) => {
+            deleteBtns[i].addEventListener('click',(e) => {
 
-                const listvalue = e.target.parentNode.innerText;
-                let processedValue = listvalue.substr(0, listvalue.length - 2);
+              const listvalue = e.target.parentNode.innerText,
+                    processedValue = listvalue.substr(0, listvalue.length - 2);
 
-                if(e.target.className == 'del-btn'){
+              if(e.target.className == 'del-btn' && marker.title == processedValue){
 
-                  if(marker.title == processedValue){
+                marker.setMap(null);
 
-                    marker.setMap(null);
+              }
 
-                  }
-
-                }
-
-              });
+            });
 
           }
 
@@ -226,17 +226,13 @@ export class LoginPageComponent implements AfterViewInit {
 
     });
 
-  }
-
-  addLocation(arg){
-
-    const listLocations = [];
-
-    return listLocations;
+    // GMApi END
 
   }
 
   admin(){
+
+    // * create general user "admin1"
 
     const adminBool = localStorage.getItem('adminGeneral');
 
@@ -245,6 +241,8 @@ export class LoginPageComponent implements AfterViewInit {
   }
 
   showUser() {
+
+    // * get values with store
 
     const testArr = [];
 
@@ -261,6 +259,8 @@ export class LoginPageComponent implements AfterViewInit {
 
   delFunc(e) {
 
+    // * delete user function
+
     const elemTargetting = e.target.parentNode.childNodes[0].value;
     localStorage.removeItem(elemTargetting);
 
@@ -269,6 +269,8 @@ export class LoginPageComponent implements AfterViewInit {
   }
 
   delFuncLoc(e){
+
+    // * delete location function
 
     const listvalue = e.target.parentNode.innerText;
     let processedValue = listvalue.substr(0, listvalue.length - 2);
