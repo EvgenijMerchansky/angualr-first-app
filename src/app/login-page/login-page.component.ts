@@ -36,7 +36,7 @@ export class LoginPageComponent implements AfterViewInit {
       name: elem
     }
 
-    return testingObj
+    return testingObj;
   })
 
   private map: any;
@@ -94,7 +94,7 @@ export class LoginPageComponent implements AfterViewInit {
 
         }
 
-      })
+      });
 
 
 
@@ -233,7 +233,7 @@ export class LoginPageComponent implements AfterViewInit {
 
               deleteBtns[i].id == marker.id ? marker.setMap(null) : marker
 
-            })
+            });
 
 
 
@@ -265,7 +265,7 @@ export class LoginPageComponent implements AfterViewInit {
 
     const adminBool = localStorage.getItem('adminGeneral');
 
-    return adminBool
+    return adminBool;
 
   }
 
